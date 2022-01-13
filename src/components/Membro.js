@@ -1,7 +1,8 @@
 import React from 'react';
+import { ListGroupItem } from 'react-bootstrap';
 
 function Membro({membro}){
-    return(<li>{membro.nome}</li>);
+    return(<ListGroupItem>{membro.nome}</ListGroupItem>);
 }
 
 export default Membro;

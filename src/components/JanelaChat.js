@@ -1,14 +1,15 @@
 import React from 'react';
 import Conversa from './Conversa';
 import Enviador from './Enviador';
-import './JanelaChat.css'
+import { Stack } from 'react-bootstrap';
+//import './JanelaChat.css'
 
 function JanelaChat(){
     return (
-        <div className='janelaChat'>
+        <Stack gap={3}>
             <Conversa/>
             <Enviador/>
-        </div>
+        </Stack>
     );
 }
 
