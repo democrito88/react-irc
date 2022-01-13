@@ -1,0 +1,12 @@
+.mensagem{
+    left: 0;
+    margin: 8px 15px;
+}
+
+.mensagem strong{
+    padding: 3px;
+    border-radius: 2px;
+    background-color: darkgreen;
+    color: white;
+    margin-right: 8px;
+}

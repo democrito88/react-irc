@@ -1,0 +1,15 @@
+.membros{
+    height: 100%;
+    width: calc(20% - 10px);
+    margin: 5px;
+    border: 1px orange solid;
+    border-radius: 5px;
+    background-color: darkorange;
+    color: white;
+    right: 0;
+    float: right;
+}
+
+.membros ul li{
+    list-style-type: none;
+}

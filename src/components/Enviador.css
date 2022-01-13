@@ -1,0 +1,24 @@
+.enviador{
+    bottom: 0;
+    height: 20%;
+    width: 97%;
+    background-color: darkgreen;
+    padding: 5px;
+}
+
+.enviador input{
+    float: left;
+    border: lightgreen 1px solid;
+    border-radius: 2px;
+    width: calc(100% - 80px);
+    padding: 9px 0;
+    margin-left: 7px;
+}
+
+.enviador button{
+    background-color: white;
+    color: darkgreen;
+    padding: 8px;
+    border-radius: 2px;
+    margin-left: 8px;
+}

@@ -1,0 +1,8 @@
+.janelaChat{
+    height: 100%;
+    width: calc(50% - 10px);
+    margin: 5px;
+    border: 1px darkgreen solid;
+    border-radius: 5px;
+    left: 0;
+}

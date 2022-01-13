@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+import './Mensagem.css'
 
 function Mensagem({mensagem}){
     console.log(mensagem);
     return (
-        <p><strong>{mensagem.autor}</strong><span>{mensagem.texto}</span></p>
+        <div className='mensagem'>
+            <strong>{mensagem.autor}</strong>
+            <span>{mensagem.texto}</span>
+        </div>
     )
 }
 

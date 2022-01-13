@@ -18,8 +18,6 @@ function Conversa(){
         }
     ]);
 
-    //setMessage([]);
-
     return (
         <div className='conversa'>
             <Mensagens mensagens={mensagens}/>

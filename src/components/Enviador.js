@@ -1,9 +1,10 @@
 import React from 'react'
+import './Enviador.css'
 
 function Enviador(){
     return (
-        <div>
-            <input type="text" /><button>Enviar</button>
+        <div className='enviador'>
+            <input type="text" onClick="enviaMensagem()" /><button>Enviar</button>
         </div>
     )
 }
