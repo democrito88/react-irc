@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Conversa from './Conversa';
 import Enviador from './Enviador';
-import { Stack } from 'react-bootstrap';
+import '../css/JanelaChat.css';
 
 function JanelaChat(){
     const [mensagens, setMessage] = useState([
@@ -32,10 +32,10 @@ function JanelaChat(){
     }
 
     return (
-        <Stack gap={3}>
+        <div className='janelaChat'>
             <Conversa mensagens={mensagens}/>
             <Enviador handleEnvioMensagens={handleEnvioMensagens}/>
-        </Stack>
+        </div>
     );
 }
 
