@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from 'react';
+import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import JanelaChat from './components/JanelaChat';
 import Membros from './components/Membros';
@@ -8,17 +8,6 @@ import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 
 function App() {
-  const [membros, setMembros] = useState([
-    {
-      nome: "Huguinho"
-    },
-    {
-      nome: "Zezinho"
-    },
-    {
-      nome: "Luizinho"
-    }
-  ]);
 
   return (
     <Container fluid className="App">
@@ -27,7 +16,7 @@ function App() {
           <JanelaChat/>
         </Col>
         <Col md={3}>
-          <Membros membros={membros}/>
+          <Membros/>
         </Col>
       </Row>
     </Container>

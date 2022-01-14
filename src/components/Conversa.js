@@ -1,23 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Mensagens from './Mensagens';
-import './Conversa.css';
+import '../css/Conversa.css';
 
-function Conversa(){
-    const [mensagens, setMessage] = useState([
-        {
-            autor: "Eu",
-            texto: "Testando"
-        },
-        {
-            autor: "Tu",
-            texto: "Testando"
-        },
-        {
-            autor: "Eu",
-            texto: "Teste"
-        }
-    ]);
-
+function Conversa({mensagens}){
     return (
         <div className='conversa'>
             <Mensagens mensagens={mensagens}/>
