@@ -1,12 +1,18 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import '../css/Enviador.css'
-import { Form } from 'react-bootstrap';
-import { FormGroup } from 'react-bootstrap';
-import { FormControl, InputGroup } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, InputGroup } from 'react-bootstrap';
 import Botao from './Botao';
-import Axios from 'axios';
+import io from 'socket.io-client';
 
-function Enviador({handleEnvioMensagens}){
+const URL_CONEXAO = "http://192.168.1.11:3001";
+var socket = io(URL_CONEXAO,{
+  withCredentials: true,
+   extraHeaders: {    
+     "Access-Control-Allow-Origin": "*"  
+    }
+});
+
+function Enviador({handleEnvioMensagens, username}){
     const [inputData, setInputData] = useState('');
 
     const handleInputChange = function(e){
@@ -17,13 +23,18 @@ function Enviador({handleEnvioMensagens}){
         handleEnvioMensagens(inputData)
     }
 
+    useEffect(function(){
+        socket = io(URL_CONEXAO,{
+            withCredentials: true,
+             extraHeaders: {    
+               "Access-Control-Allow-Origin": "*"  
+              }
+          });
+    });
+
     function handleEnvioMensagens(inputData){
-        Axios.post('http://192.168.1.11:3001/envioMensagem',{
-            username: "",
-            message: inputData
-        }).then(function(resposta){
-            console.log(resposta);
-        });
+        console.log(inputData);
+        socket.emit('envioMensagem', {username: username, message: inputData});
     }
 
     return (
