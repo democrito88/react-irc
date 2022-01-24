@@ -51,6 +51,10 @@ function App() {
     setUserName(resposta.username);
   });
 
+  function enviarMensagem(novaMensagem){
+    socket.emit('enviarMensagem', novaMensagem);
+  }
+
   return (
     <>
       {!logado ?
@@ -78,7 +82,7 @@ function App() {
         <Container fluid className="App">
           <Row>
             <Col md={9}>
-              <JanelaChat username={username}/>
+              <JanelaChat username={username} onEnviarMensagem={this.enviarMensagem}/>
             </Col>
             <Col md={3}>
               <Membros/>
