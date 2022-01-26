@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 const URL_CONEXAO = "http://192.168.1.11:3001";
 let socket;
 
-function Login({logado}) {
+function Login({login}) {
   var [show, setShow] = useState(true);
 
   const handleClose = () => setShow(false);
@@ -24,9 +24,9 @@ function Login({logado}) {
       setSala(e.target.value);
   };
 
-  function login(e){
+  function submeter(e){
     e.preventDefault();
-    socket.emit('login', {username: nomeLogin, sala: sala});
+    login({nomeLogin: nomeLogin, sala: sala});
     handleClose();
   }
 
@@ -46,7 +46,7 @@ function Login({logado}) {
           <Modal.Title>Faça parte da nossa comunidade</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <Form onSubmit={login}>
+            <Form onSubmit={submeter}>
               <FormGroup>
                   <InputGroup className="mb-3">
                       <FormControl type="text" onChange={handleNomeLoginChange} value={nomeLogin} placeholder='nome de usuário'/>

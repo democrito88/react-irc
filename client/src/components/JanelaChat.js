@@ -3,7 +3,7 @@ import Conversa from './Conversa';
 import Enviador from './Enviador';
 import '../css/JanelaChat.css';
 
-function JanelaChat({username, enviarMensagem}){
+function JanelaChat({username, enviarMensagem, handleEnvioMensagens}){
     const [mensagens, setMessage] = useState([
         {
             id: Math.random(),
@@ -22,7 +22,7 @@ function JanelaChat({username, enviarMensagem}){
         }
     ]);
 
-    function handleEnvioMensagens(texto){
+    function atualizaMensagens(texto){
         const novaMensagem = [...mensagens, {
             autor: username,
             texto: texto
@@ -34,7 +34,7 @@ function JanelaChat({username, enviarMensagem}){
 
     return (
         <div className='janelaChat'>
-            <Conversa mensagens={mensagens}/>
+            <Conversa mensagens={mensagens} atualizaMensagens={atualizaMensagens}/>
             <Enviador handleEnvioMensagens={handleEnvioMensagens} username={username}/>
         </div>
     );

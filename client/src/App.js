@@ -23,24 +23,30 @@ function App() {
     socket = io(URL_CONEXAO);
   });
 
-  socket.on('ingressar', function(resposta){
-    setLogado(resposta.logado);
-    setUserName(resposta.username);
-  });
+  function login(input){
+    socket.emit('login', input);
+    setLogado(true);
+    setUserName(input.nomeLogin);
+  }
 
   function enviarMensagem(novaMensagem){
     socket.emit('enviarMensagem', novaMensagem);
   }
 
+  function handleEnvioMensagens(inputData){
+    console.log(inputData);
+    socket.emit('envioMensagem', {username: username, message: inputData});
+  }
+
   return (
     <>
       {!logado ?
-        <Login/>
+        <Login login={login}/>
       :
         <Container fluid className="App">
           <Row>
             <Col md={9}>
-              <JanelaChat username={username} onEnviarMensagem={this.enviarMensagem}/>
+              <JanelaChat username={username} onEnviarMensagem={this.enviarMensagem} handleEnvioMensagens={handleEnvioMensagens} />
             </Col>
             <Col md={3}>
               <Membros/>

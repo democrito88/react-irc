@@ -19,10 +19,6 @@ function Enviador({handleEnvioMensagens, username}){
         setInputData(e.target.value);
     };
 
-    function enviaMensagem(){
-        handleEnvioMensagens(inputData)
-    }
-
     useEffect(function(){
         socket = io(URL_CONEXAO,{
             withCredentials: true,
@@ -32,13 +28,13 @@ function Enviador({handleEnvioMensagens, username}){
           });
     });
 
-    function handleEnvioMensagens(inputData){
-        console.log(inputData);
-        socket.emit('envioMensagem', {username: username, message: inputData});
+    function submeter(e){
+        e.preventDefault();
+        handleEnvioMensagens(inputData);
     }
 
     return (
-        <Form className='enviador'>
+        <Form className='enviador' onSubmit={submeter}>
             <FormGroup>
                 <InputGroup className="mb-3">
                     <FormControl type="text" onChange={handleInputChange} value={inputData} />
