@@ -19,8 +19,8 @@ function App() {
 
   function login(input){
     if(input.nomeLogin !== "" || input.sala !== ""){
+      setLogado(true);
       socket.emit('login', input);
-      logado = true;
       setUserName(input.nomeLogin);
     }
   }
@@ -30,24 +30,26 @@ function App() {
     socket.emit('envioMensagem', {username: username, message: inputData});
   }
 
-  return (
-    <>
-      {!logado ?
-        <Login login={login}/>
-      :
-        <Container fluid className="App">
-          <Row>
-            <Col md={9}>
-              <JanelaChat username={username} handleEnvioMensagens={handleEnvioMensagens} />
-            </Col>
-            <Col md={3}>
-              <Membros/>
-            </Col>
-          </Row>
-        </Container>
-      }
-    </> 
-  );
+  if(!logado){
+    console.log("logado: "+logado);
+    return(
+    <Login login={login}/>
+    )
+  }else{
+    console.log("logado: "+logado);
+    return(
+    <Container fluid className="App">
+      <Row>
+        <Col md={9}>
+          <JanelaChat username={username} handleEnvioMensagens={handleEnvioMensagens} />
+        </Col>
+        <Col md={3}>
+          <Membros/>
+        </Col>
+      </Row>
+    </Container>
+          )
+    }
 }
 
 export default App;
