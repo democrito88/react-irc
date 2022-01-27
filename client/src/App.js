@@ -6,11 +6,22 @@ import Membros from './components/Membros';
 import Login from './components/Login';
 import { Container, Row, Col } from 'react-bootstrap';
 import io from "socket.io-client";
-const URL_CONEXAO = "http://localhost:3001";
+const URL_CONEXAO = "http://192.168.10.23:3001";
 
 function App() {
   var [logado, setLogado] = useState(false);
   var [username, setUserName] = useState("");
+  var [membros, setMembros] = useState([]);
+  var [conversa, setConversa] = useState([]);
+
+  function updateConversa(novaMensagem){
+    setConversa([...conversa, novaMensagem]);
+  }
+
+  function updateMembros(novoMembro){
+    setMembros([...membros, novoMembro]);
+  }
+
   const socket = io(URL_CONEXAO, {
     cors: {
       origin: '*',
@@ -27,8 +38,22 @@ function App() {
 
   function handleEnvioMensagens(inputData){
     console.log(inputData);
-    socket.emit('envioMensagem', {username: username, message: inputData});
+    socket.emit('envio', {username: username, message: inputData});
   }
+
+  socket.on('iniciarChat', function(data){
+    setUserName(data.username);
+    updateConversa(data.conversa);
+  });
+
+  socket.on('atualizarMembros', function(data){
+    updateMembros(data.membros);
+  })
+
+  socket.on('recebe', function(novaMensagem){
+    updateConversa(novaMensagem);
+    console.log(conversa);
+  })
 
   if(!logado){
     console.log("logado: "+logado);
@@ -41,10 +66,10 @@ function App() {
     <Container fluid className="App">
       <Row>
         <Col md={9}>
-          <JanelaChat username={username} handleEnvioMensagens={handleEnvioMensagens} />
+          <JanelaChat conversa={conversa} username={username} handleEnvioMensagens={handleEnvioMensagens} />
         </Col>
         <Col md={3}>
-          <Membros/>
+          <Membros membros={membros}/>
         </Col>
       </Row>
     </Container>

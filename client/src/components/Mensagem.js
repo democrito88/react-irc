@@ -2,11 +2,11 @@ import React from 'react';
 import '../css/Mensagem.css'
 import Badge from 'react-bootstrap/Badge';
 
-function Mensagem({mensagem}){
+function Mensagem({key, mensagem}){
     return (
-        <div className='mensagem'>
-            <Badge variant="primary">{mensagem.autor}</Badge>
-            <span>{mensagem.texto}</span>
+        <div key={key} className='mensagem'>
+            <Badge key={key} variant="primary">{mensagem.autor}</Badge>
+            <span key={key}>{mensagem.message}</span>
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { ListGroupItem } from 'react-bootstrap';
 
-function Membro({membro}){
-    return(<ListGroupItem>{membro.nome}</ListGroupItem>);
+function Membro({key, membro}){
+    return(<ListGroupItem key={key}>{membro.username}</ListGroupItem>);
 }
 
 export default Membro;

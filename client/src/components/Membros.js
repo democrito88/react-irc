@@ -1,34 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Membro from './Membro';
 import { Card } from 'react-bootstrap';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 import { ListGroup } from 'react-bootstrap';
-import AddMembro from './AddMembro';
 
-function Membros(){
-    const [membros, setMembros] = useState([
-        {
-            nome: '', 
-            id: ''
-        }
-    ]);
-
-    function handleMembros(membro){
-        const novoMembro = [...membros, {
-            nome: membro,
-            id: Math.random()
-        }]
-
-        setMembros(novoMembro);
-    }
+function Membros({membros}){
 
     return(
         <Card>
             <CardHeader>Membros Online</CardHeader>
             <ListGroup variant="flush">
-                {membros.map((membro) => (<Membro membro={membro}/>))}
+                {membros.map((membro, index) => (<Membro key={index} membro={membro}/>))}
             </ListGroup>
-            <AddMembro handleMembros={handleMembros}/>
         </Card>
     );
 }

@@ -27,25 +27,26 @@ io.on("connection", function(socket){
     console.log("Socket conectado com a id: "+socket.id)
 
     socket.on('login', function(input){
-        usuarios.push(input.nomeLogin);
+        usuarios.push({id: (new Date()).getTime(), username:input.nomeLogin});
         console.log(input.nomeLogin+" entrou na sala "+input.sala)
 
-        socket.emit("mensagensAnteriores", logMensagens)
+        socket.broadcast.emit('atualizarMembros', {membros: usuarios})
+        socket.emit("iniciarChat", {username: input.nomeLogin, conversa: logMensagens})
     })
 
     socket.on('envio', function(data){
-        logMensagens.push(data);
-        let novoUsusario = {username: "", message: ""};
-
+        logMensagens.push({autor: data.username, message:data.message});
+        //let novoUsusario = {username: "", message: ""};
+        
         //tira os nomes repetidos dos usuários
         if(!usuarios.includes(data.username)){
             usuarios.push(data.username);
-            novoUsusario = data;
+            //novoUsusario = data;
         }
 
-        socket.broadcast.emit("novoUsuario", novoUsusario)
-        socket.broadcast.emit("lista", usuarios);
-        socket.broadcast.emit("recebe", logMensagens);
+        //socket.broadcast.emit("novoUsuario", novoUsusario)
+        //socket.broadcast.emit("lista", usuarios);
+        socket.broadcast.emit("recebe", {autor: data.username, message: data.message});
     });
     
 })
