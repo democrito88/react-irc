@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Membro from './Membro';
+//import Membro from './Membro';
 import { Card } from 'react-bootstrap';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 import { ListGroup } from 'react-bootstrap';
@@ -10,15 +10,17 @@ function Membros({socket}){
     
     useEffect(function(){
         socket.on('atualizarMembros', function(data){
-            setMembros([...membros, data.membros]);
+            console.log("Novo membro: "+data.membros);
+            setMembros(data.membros);
+            console.log("Lista completa de membros: "+membros);
         });
     }, [socket, membros]);
     
     return(
         <Card>
             <CardHeader>Membros Online</CardHeader>
-            <ListGroup variant="flush">
-                {membros.map((membro, index) => (<Membro membro={membro}/>))}
+            <ListGroup variant="flush" as="ul">
+                {membros.map((membro) => {return <ListGroup.Item>{membro}</ListGroup.Item>})}
             </ListGroup>
         </Card>
     );

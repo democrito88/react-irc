@@ -37,7 +37,7 @@ io.on("connection", function(socket){
 
         console.log(input.nomeLogin+" entrou na sala "+input.sala+" com o id: "+socket.id)
 
-        socket.to(input.sala).emit('atualizarMembros', {membros: usuarios})
+        socket.broadcast.emit('atualizarMembros', {membros: usuarios})
         socket.emit("iniciarChat", {username: input.nomeLogin, conversa: logMensagens[input.sala]})
     })
 
@@ -49,7 +49,7 @@ io.on("connection", function(socket){
         if(!usuarios.includes(data.username)){
             usuarios.push(data.username);
         }
-        socket.to(data.sala).emit("recebe", data);
+        socket.broadcast.emit("recebe", data);
     });
     
     socket.on("disconnection", function(socket){
