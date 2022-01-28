@@ -1,54 +1,43 @@
-//npm install express socket.io cors http nodaemon
+//npm install express path http socket.io ejs
 const express = require('express');
+const path = require('path');
+
 const app = express();
-const cors = require('cors')
-//const server = require('http').createServer(app);
-/*const io = require('socket.io')(server);*/
-const socket = require('socket.io');
-
-app.use(cors());
-app.use(express.json());
-
-var usuarios = [];
-var logMensagens = [];
-
-app.get("/", function(req, res){
-    res.send("<h1>Servidor rodando na porta 3001.</h1>");
-});
-
-var server = app.listen(3001, function(){
-    console.log("Servidor rodando na porta 3001.");
-});
-
-io = socket(server, {
+const server = require('http').createServer(app)
+const io = require('socket.io')(server, {
     cors: {
-        origin: "*",    
-        methods: ["GET", "POST"],    
-        allowedHeaders: ["Access-Control-Allow-Origin"],    
-        credentials: true  
+      origin: '*',
+      methods: ["GET","POST"]
     }
-});
+  })
+
+var logMensagens = [];
+var usuarios = [];
+
+app.use(express.static(path.join(__dirname, 'public')))
+app.set("views", path.join(__dirname, 'public'))
+app.engine("html", require("ejs").renderFile)
+app.set("view engine", "html")
+
+app.use("/", function(req, res){
+    return "<h2>Oi!</h2>";
+})
 
 io.on("connection", function(socket){
     console.log("Socket conectado com a id: "+socket.id)
 
-    socket.on("login", function(login){
-        usuarios.push(login.username);
-        socket.join(login);
-        console.log(login.username+" se conectou");
-        socket.emit('ingressar', {logado: true, username: login.username, mensagens: logMensagens});
-    });
+    socket.on('login', function(input){
+        usuarios.push(input.nomeLogin);
+        console.log(input.nomeLogin+" entrou na sala "+input.sala)
 
-    socket.on("logout", function(user){
-        usuarios.pop(user.username);
-        console.log(user.username+" se desconectou");
-    });
+        socket.emit("mensagensAnteriores", logMensagens)
+    })
 
-    socket.on('envioMensagem', function(data){
+    socket.on('envio', function(data){
         logMensagens.push(data);
         let novoUsusario = {username: "", message: ""};
 
-        //tira os nomes repetidos dos usuĂ¡rios
+        //tira os nomes repetidos dos usuários
         if(!usuarios.includes(data.username)){
             usuarios.push(data.username);
             novoUsusario = data;
@@ -56,7 +45,11 @@ io.on("connection", function(socket){
 
         socket.broadcast.emit("novoUsuario", novoUsusario)
         socket.broadcast.emit("lista", usuarios);
-        socket.broadcast.emit("recebeMensagem", logMensagens);
+        socket.broadcast.emit("recebe", logMensagens);
     });
     
-});
+})
+
+server.listen(3001, function(){
+    console.log("Servidor executando")
+})

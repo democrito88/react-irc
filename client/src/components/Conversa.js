@@ -3,7 +3,7 @@ import Mensagens from './Mensagens';
 import '../css/Conversa.css';
 import io from 'socket.io-client';
 
-const URL_CONEXAO = "http://192.168.1.11:3001";
+const URL_CONEXAO = "http://127.0.0.1:3001";
 var socket = io(URL_CONEXAO,{
   withCredentials: true,
    extraHeaders: {    
@@ -15,7 +15,7 @@ function Conversa({mensagens}){
     var [conversa, setConversa] = useState(mensagens);
 
     function setConversa(mensagem){
-        conversa = [...conversa, mensagem];
+        conversa = [mensagem, ...conversa];
     }
 
     useEffect(function(){
