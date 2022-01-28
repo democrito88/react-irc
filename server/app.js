@@ -6,7 +6,7 @@ const app = express();
 const server = require('http').createServer(app)
 const io = require('socket.io')(server, {
     cors: {
-      origin: 'http://localhost:3000',
+      origin: '*',
       methods: ["GET","POST"]
     }
   })
@@ -27,6 +27,7 @@ io.on("connection", function(socket){
     console.log("Socket conectado com a id: "+socket.id)
 
     socket.on('login', function(input){
+        socket.join(input.sala); //configura um socket para aquela sala
         usuarios.push(input.nomeLogin);
 
         //cria um espaço para as mensagens da sala (cra a sala)
@@ -34,20 +35,21 @@ io.on("connection", function(socket){
             logMensagens[input.sala] = [];
         }
 
-        console.log(input.nomeLogin+" entrou na sala "+input.sala)
+        console.log(input.nomeLogin+" entrou na sala "+input.sala+" com o id: "+socket.id)
 
-        socket.broadcast.emit('atualizarMembros', {membros: usuarios})
+        socket.to(input.sala).emit('atualizarMembros', {membros: usuarios})
         socket.emit("iniciarChat", {username: input.nomeLogin, conversa: logMensagens[input.sala]})
     })
 
     socket.on('envio', function(data){
         logMensagens[data.sala].push(data);
+        console.log("Recebendo socket de id: "+socket.id+" e sala "+JSON.stringify(socket.rooms));
         
         //tira os nomes repetidos dos usuários
         if(!usuarios.includes(data.username)){
             usuarios.push(data.username);
         }
-        socket.broadcast.emit("recebe", data);
+        socket.to(data.sala).emit("recebe", data);
     });
     
     socket.on("disconnection", function(socket){

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Mensagem.css'
 
-function Mensagem({key, mensagem}){
+function Mensagem({mensagem}){
     return (
         <div className='mensagem'>
             <span className='autor'>{mensagem.username}</span><br />
