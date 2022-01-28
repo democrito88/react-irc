@@ -38,7 +38,7 @@ function App() {
         <Container fluid className="App">
           <Row>
             <Col md={9}>
-              <JanelaChat username={username} onEnviarMensagem={this.enviarMensagem} handleEnvioMensagens={handleEnvioMensagens} />
+              <JanelaChat username={username} handleEnvioMensagens={handleEnvioMensagens} />
             </Col>
             <Col md={3}>
               <Membros/>
