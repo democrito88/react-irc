@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Conversa from './Conversa';
 import Enviador from './Enviador';
 import '../css/JanelaChat.css';
 
-function JanelaChat({conversa, username, handleEnvioMensagens}){
+function JanelaChat({socket, setUserName, username, sala}){
 
     return (
         <div className='janelaChat'>
-            <Conversa mensagens={conversa}/>
-            <Enviador handleEnvioMensagens={handleEnvioMensagens} username={username}/>
+            <Conversa socket={socket} setUserName={setUserName} />
+            <Enviador socket={socket} username={username} sala={sala}/>
         </div>
     );
 }

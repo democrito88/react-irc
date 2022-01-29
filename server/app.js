@@ -6,7 +6,7 @@ const app = express();
 const server = require('http').createServer(app)
 const io = require('socket.io')(server, {
     cors: {
-      origin: '*',
+      origin: 'http://localhost:3000',
       methods: ["GET","POST"]
     }
   })
@@ -27,28 +27,32 @@ io.on("connection", function(socket){
     console.log("Socket conectado com a id: "+socket.id)
 
     socket.on('login', function(input){
-        usuarios.push({id: (new Date()).getTime(), username:input.nomeLogin});
+        usuarios.push(input.nomeLogin);
+
+        //cria um espaço para as mensagens da sala (cra a sala)
+        if(logMensagens[input.sala] === undefined){
+            logMensagens[input.sala] = [];
+        }
+
         console.log(input.nomeLogin+" entrou na sala "+input.sala)
 
         socket.broadcast.emit('atualizarMembros', {membros: usuarios})
-        socket.emit("iniciarChat", {username: input.nomeLogin, conversa: logMensagens})
+        socket.emit("iniciarChat", {username: input.nomeLogin, conversa: logMensagens[input.sala]})
     })
 
     socket.on('envio', function(data){
-        logMensagens.push({autor: data.username, message:data.message});
-        //let novoUsusario = {username: "", message: ""};
+        logMensagens[data.sala].push(data);
         
         //tira os nomes repetidos dos usuários
         if(!usuarios.includes(data.username)){
             usuarios.push(data.username);
-            //novoUsusario = data;
         }
-
-        //socket.broadcast.emit("novoUsuario", novoUsusario)
-        //socket.broadcast.emit("lista", usuarios);
-        socket.broadcast.emit("recebe", {autor: data.username, message: data.message});
+        socket.broadcast.emit("recebe", data);
     });
     
+    socket.on("disconnection", function(socket){
+        console.log("Socket desconectado com a id: "+socket.id);
+    });
 })
 
 server.listen(3001, function(){

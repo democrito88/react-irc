@@ -1,12 +1,19 @@
 .mensagem{
     left: 0;
     margin: 8px 15px;
+    border-radius: 8px;
+    background-color: darkblue;
+    color: white;
+    padding: 8px;
 }
 
-.mensagem strong{
-    padding: 3px;
-    border-radius: 2px;
-    background-color: darkgreen;
-    color: white;
-    margin-right: 8px;
+.autor{
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.hora{
+    font-size: 0.8em;
+    left: 91%;
+    position: sticky;
 }

@@ -8,7 +8,6 @@ function Login({login}) {
   var [sala, setSala] = useState("");
 
   const handleClose = () => setShow(false);
-  //const handleShow = () => setShow(true);
 
   const handleNomeLoginChange = function(e){
       setNomeLogin(e.target.value);
