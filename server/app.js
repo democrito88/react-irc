@@ -28,12 +28,12 @@ io.on("connection", function(socket){
 
     socket.on('login', function(input){
         socket.join(input.sala); //configura um socket para aquela sala
-
+        
         if(usuarios[input.sala] === undefined){
             usuarios[input.sala] = [];
         }
 
-        usuarios.push(input.nomeLogin);
+        usuarios[input.sala].push(input.nomeLogin);
 
         //cria um espaço para as mensagens da sala (cra a sala)
         if(logMensagens[input.sala] === undefined){
@@ -42,7 +42,7 @@ io.on("connection", function(socket){
 
         console.log(input.nomeLogin+" entrou na sala "+input.sala+" com o id: "+socket.id);
 
-        socket.broadcast.emit('atualizarMembros', {membros: usuarios[input.sala]})
+        socket.to(input.sala).emit('atualizarMembros', {membros: usuarios[input.sala]})
         socket.emit("iniciarChat", {username: input.nomeLogin, conversa: logMensagens[input.sala]})
         socket.emit("iniciarMembro", {membros: usuarios[input.sala]})
     })
@@ -52,10 +52,10 @@ io.on("connection", function(socket){
         console.log("Recebendo mensagem de socket de id: "+socket.id);
         
         //tira os nomes repetidos dos usuários
-        if(!usuarios["a"].includes(data.username)){
-            usuarios["a"].push(data.username);
+        if(!usuarios[data.sala].includes(data.username)){
+            usuarios[data.sala].push(data.username);
         }
-        socket.broadcast.emit("recebe", data);
+        socket.to(data.sala).emit("recebe", data); 
     });
     
     socket.on("disconnection", function(socket){

@@ -6,19 +6,19 @@ import Membros from './components/Membros';
 import Login from './components/Login';
 import { Container, Row, Col } from 'react-bootstrap';
 import io from "socket.io-client";
-const URL_CONEXAO = "http://localhost:3001";
+const URL_CONEXAO = "http://192.168.10.23:3001";
 
-function App() {
+const socket = io(URL_CONEXAO, {
+  cors: {
+    origin: '*',
+    methods: ['GET','POST']
+  }
+});
+
+export default function App() {
   var [logado, setLogado] = useState(false);
   var [username, setUserName] = useState("");
   var [sala, setSala] = useState("");
-
-  const socket = io(URL_CONEXAO, {
-    cors: {
-      origin: '*',
-      methods: ['GET','POST']
-    }
-  });
 
   const login = (input) => {
     if(input.nomeLogin !== "" || input.sala !== ""){
@@ -30,12 +30,10 @@ function App() {
     }
   }
 
-  if(!logado){
-    return(
-    <Login login={login}/>
-    )
-  }else{
-    return(
+  return <div>
+    {!logado ?
+      <Login login={login}/>
+  :
     <Container fluid className="App">
       <Row>
         <Col md={9}>
@@ -45,9 +43,8 @@ function App() {
           <Membros socket={socket}/>
         </Col>
       </Row>
-    </Container>
-          )
+    </Container> 
     }
+  </div>
+  
 }
-
-export default App;

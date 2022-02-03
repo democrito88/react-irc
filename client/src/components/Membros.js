@@ -6,11 +6,12 @@ import { ListGroup } from 'react-bootstrap';
 
 function Membros({socket}){
 
-    var [membros, setMembros] = useState(["Huguinho","Zezinho","Luizinho"]);
+    var [membros, setMembros] = useState([]);
     
     useEffect(function(){
         socket.on('atualizarMembros', function(data){
-            console.log("Novo membro: "+data.membros);
+            console.log("Novo membro: ");
+            console.log(data);
             setMembros(data.membros);
             console.log("Lista completa de membros: "+membros);
         });
@@ -25,7 +26,7 @@ function Membros({socket}){
         <Card>
             <CardHeader>Membros Online</CardHeader>
             <ListGroup variant="flush" as="ul">
-                {membros.map((membro) => {return <ListGroup.Item>{membro}</ListGroup.Item>})}
+                {membros.map((membro) => <ListGroup.Item>{membro}</ListGroup.Item>)}
             </ListGroup>
         </Card>
     );
