@@ -14,7 +14,12 @@ function Membros({socket}){
             setMembros(data.membros);
             console.log("Lista completa de membros: "+membros);
         });
-    }, [socket, membros]);
+
+        socket.on("iniciarMembro", function(data){
+            console.log("Membros - socket com id: "+socket.id);
+            setMembros([...membros, data.membro])
+        })
+    }, []);
     
     return(
         <Card>

@@ -15,12 +15,14 @@ function JanelaChat({socket, setUserName, username, sala}){
             setUserName(data.username);
             setConversa(() => [...conversa, data]);
         });*/
+        
     
         socket.on('recebe', function(novaMensagem){
-            updateConversa(novaMensagem)
+            setConversa([...conversa, novaMensagem]);
+            console.log("JanelaChat - Socket de id "+socket.id)
             console.log(conversa);
         });
-    }, [socket, conversa]);
+    }, []);
 
     return (
         <div className='janelaChat'>

@@ -18,7 +18,7 @@ function Enviador({socket, username, sala, updateConversa}){
                 sala: sala,
                 tempo: (new Date(Date.now()).getHours()) + ":" + (new Date(Date.now()).getMinutes())
             };
-
+            console.log("Enviador - socket com a id: "+socket.id)
             socket.emit('envio', novaMensagem);
 
             updateConversa(novaMensagem);

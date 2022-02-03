@@ -35,15 +35,16 @@ io.on("connection", function(socket){
             logMensagens[input.sala] = [];
         }
 
-        console.log(input.nomeLogin+" entrou na sala "+input.sala+" com o id: "+socket.id)
+        console.log(input.nomeLogin+" entrou na sala "+input.sala+" com o id: "+socket.id);
 
         socket.broadcast.emit('atualizarMembros', {membros: usuarios})
         socket.emit("iniciarChat", {username: input.nomeLogin, conversa: logMensagens[input.sala]})
+        socket.emit("iniciarMembro", {membro: input.nomeLogin})
     })
 
     socket.on('envio', function(data){
         logMensagens[data.sala].push(data);
-        console.log("Recebendo socket de id: "+socket.id+" e sala "+JSON.stringify(socket.rooms));
+        console.log("Recebendo mensagem de socket de id: "+socket.id);
         
         //tira os nomes repetidos dos usuários
         if(!usuarios.includes(data.username)){

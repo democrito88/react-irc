@@ -6,7 +6,7 @@ import Membros from './components/Membros';
 import Login from './components/Login';
 import { Container, Row, Col } from 'react-bootstrap';
 import io from "socket.io-client";
-const URL_CONEXAO = "http://192.168.10.23:3001";
+const URL_CONEXAO = "http://localhost:3001";
 
 function App() {
   var [logado, setLogado] = useState(false);
@@ -23,6 +23,7 @@ function App() {
   const login = (input) => {
     if(input.nomeLogin !== "" || input.sala !== ""){
       setLogado(true);
+      console.log("App - Socket de id "+socket.id)
       socket.emit('login', input);
       setUserName(input.nomeLogin);
       setSala(input.sala);
