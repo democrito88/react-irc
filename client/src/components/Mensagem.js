@@ -1,13 +1,18 @@
 import React from 'react';
-import '../css/Mensagem.css'
+import {Row, Col} from 'react-bootstrap';
+import '../css/Mensagem.css';
 
-function Mensagem({mensagem}){
+function Mensagem({usuario, mensagem}){
     return (
-        <div className='mensagem'>
-            <span className='autor'>{mensagem.username}</span><br />
-            <span>{mensagem.message}</span>
-            <span className='hora'>{mensagem.tempo}</span>
-        </div>
+        <Row>
+            <Col>
+                <div className={usuario === mensagem.username? 'mensagem-propria' : 'mensagem'} key={mensagem.id}>
+                    <span className='autor'>{mensagem.username}</span><br/>
+                    <span className='conteudo'>{mensagem.message}</span><br/>
+                    <span className='hora'>{mensagem.tempo}</span>
+                </div>
+            </Col>
+        </Row>
     )
 }
 

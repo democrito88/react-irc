@@ -1,10 +1,23 @@
 .mensagem{
     left: 0;
-    margin: 8px 15px;
+    margin: 2px 15px 2px 15px;
     border-radius: 8px;
     background-color: darkblue;
     color: white;
     padding: 8px;
+    display: flex;
+    max-width: 80%;
+}
+
+.mensagem-propria{
+    right: 0;
+    float: right;
+    margin: 2px 15px 2px 15px;
+    border-radius: 8px;
+    background-color: darkred;
+    color: white;
+    padding: 8px;
+    max-width: 80%;
 }
 
 .autor{
@@ -16,4 +29,9 @@
     font-size: 0.8em;
     left: 91%;
     position: sticky;
+}
+
+.conteudo{
+    width: fit-content;
+    width: -moz-fit-content;
 }

@@ -1,7 +1,7 @@
 .conversa{
     top: 0;
     height: 100%;
-    width: 80%;
+    width: 100%;
     padding: 1%;
-    overflow: auto;
+    overflow-y: visible;
 }

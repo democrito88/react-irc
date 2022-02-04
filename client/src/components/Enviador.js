@@ -13,6 +13,7 @@ function Enviador({socket, username, sala, updateConversa}){
     const handleEnvioMensagens = (inputData) => {
         if(inputData !== ""){
             const novaMensagem = {
+                id: (new Date()).getTime(),
                 username: username, 
                 message: inputData,
                 sala: sala,

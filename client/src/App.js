@@ -6,7 +6,7 @@ import Membros from './components/Membros';
 import Login from './components/Login';
 import { Container, Row, Col } from 'react-bootstrap';
 import io from "socket.io-client";
-const URL_CONEXAO = "http://192.168.10.23:3001";
+const URL_CONEXAO = "http://localhost:3001";
 
 const socket = io(URL_CONEXAO, {
   cors: {

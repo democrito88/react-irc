@@ -19,6 +19,7 @@ function JanelaChat({socket, setUserName, username, sala}){
     
         socket.on('recebe', function(novaMensagem){
             setConversa([...conversa, novaMensagem]);
+            //conversa.push(novaMensagem)
             console.log("JanelaChat - Socket de id "+socket.id)
             console.log(conversa);
         });
@@ -26,7 +27,7 @@ function JanelaChat({socket, setUserName, username, sala}){
 
     return (
         <div className='janelaChat'>
-            <Conversa conversa={conversa} />
+            <Conversa conversa={conversa} usuario={username}/>
             <Enviador socket={socket} username={username} sala={sala} updateConversa={updateConversa}/>
         </div>
     );
