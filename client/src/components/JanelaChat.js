@@ -7,7 +7,7 @@ function JanelaChat({socket, setUserName, username, sala}){
     var [conversa, setConversa] = useState([]);
 
     function updateConversa(novaMensagem){
-        setConversa([...conversa, novaMensagem]);
+        setConversa(conversa => [...conversa, novaMensagem]);
     }
 
     useEffect(function(){
@@ -18,7 +18,8 @@ function JanelaChat({socket, setUserName, username, sala}){
         
     
         socket.on('recebe', function(novaMensagem){
-            setConversa([...conversa, novaMensagem]);
+            console.log(novaMensagem);
+            setConversa(conversa => [...conversa, novaMensagem]);
             //conversa.push(novaMensagem)
             console.log("JanelaChat - Socket de id "+socket.id)
             console.log(conversa);
@@ -28,7 +29,7 @@ function JanelaChat({socket, setUserName, username, sala}){
     return (
         <div className='janelaChat'>
             <Conversa conversa={conversa} usuario={username}/>
-            <Enviador socket={socket} username={username} sala={sala} updateConversa={updateConversa}/>
+            <Enviador socket={socket} username={username} sala={sala} updateConversa={updateConversa} />
         </div>
     );
 }

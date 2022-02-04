@@ -3,7 +3,7 @@ import '../css/Enviador.css'
 import { FormControl, InputGroup } from 'react-bootstrap';
 //import Botao from './Botao';
 
-function Enviador({socket, username, sala, updateConversa}){
+function Enviador({socket, username, sala,updateConversa }){
     const [inputData, setInputData] = useState('');
 
     const handleInputChange = function(e){
