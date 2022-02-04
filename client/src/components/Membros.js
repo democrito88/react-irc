@@ -6,7 +6,7 @@ import { ListGroup } from 'react-bootstrap';
 
 function Membros({socket}){
 
-    var [membros, setMembros] = useState([]);
+    var [membros, setMembros] = useState(["Huguinho","Zezinho","Luizinho"]);
     
     useEffect(function(){
         socket.on('atualizarMembros', function(data){
@@ -15,11 +15,11 @@ function Membros({socket}){
             console.log("Lista completa de membros: "+membros);
         });
 
-        socket.on("iniciarMembro", function(data){
+        socket.once("iniciarMembro", function(data){
             console.log("Membros - socket com id: "+socket.id);
-            setMembros([...membros, data.membro])
+            setMembros(data.membros)
         })
-    }, []);
+    }, [socket, membros]);
     
     return(
         <Card>

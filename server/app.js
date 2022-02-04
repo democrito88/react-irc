@@ -28,6 +28,11 @@ io.on("connection", function(socket){
 
     socket.on('login', function(input){
         socket.join(input.sala); //configura um socket para aquela sala
+
+        if(usuarios[input.sala] === undefined){
+            usuarios[input.sala] = [];
+        }
+
         usuarios.push(input.nomeLogin);
 
         //cria um espaço para as mensagens da sala (cra a sala)
@@ -37,9 +42,9 @@ io.on("connection", function(socket){
 
         console.log(input.nomeLogin+" entrou na sala "+input.sala+" com o id: "+socket.id);
 
-        socket.broadcast.emit('atualizarMembros', {membros: usuarios})
+        socket.broadcast.emit('atualizarMembros', {membros: usuarios[input.sala]})
         socket.emit("iniciarChat", {username: input.nomeLogin, conversa: logMensagens[input.sala]})
-        socket.emit("iniciarMembro", {membro: input.nomeLogin})
+        socket.emit("iniciarMembro", {membros: usuarios[input.sala]})
     })
 
     socket.on('envio', function(data){
@@ -47,8 +52,8 @@ io.on("connection", function(socket){
         console.log("Recebendo mensagem de socket de id: "+socket.id);
         
         //tira os nomes repetidos dos usuários
-        if(!usuarios.includes(data.username)){
-            usuarios.push(data.username);
+        if(!usuarios["a"].includes(data.username)){
+            usuarios["a"].push(data.username);
         }
         socket.broadcast.emit("recebe", data);
     });
