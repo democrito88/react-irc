@@ -30,8 +30,6 @@ module.exports = {
     },
     
     atualizar: function(tabela, arrayColunas, arrayValores){
-        let stringColunas = "";
-        let stringInterrogacao = "";
         let updateQuery = "UPDATE "+tabela+" SET ";
 
         for(let i = 0; i < arrayColunas.length; i++){

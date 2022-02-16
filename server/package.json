@@ -13,6 +13,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.2",
     "http": "^0.0.1-security",
+    "mysql": "^2.18.1",
     "nodaemon": "^0.0.5",
     "socket.io": "^4.4.1"
   }
