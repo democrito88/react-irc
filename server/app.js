@@ -11,6 +11,9 @@ const io = require('socket.io')(server, {
     }
   })
 
+const Usuario = require('./usuario');
+let usu = new Usuario();
+
 var logMensagens = [];
 var usuarios = [];
 
