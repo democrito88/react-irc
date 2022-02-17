@@ -6,6 +6,7 @@ import Membros from './components/Membros';
 import Login from './components/Login';
 import { Container, Row, Col } from 'react-bootstrap';
 import io from "socket.io-client";
+import Cadastro from './components/Cadastro';
 const URL_CONEXAO = "http://192.168.10.23:3001";
 
 const socket = io(URL_CONEXAO, {
@@ -17,6 +18,7 @@ const socket = io(URL_CONEXAO, {
 
 export default function App() {
   var [logado, setLogado] = useState(false);
+  var [cadastrar, setCadastrar] = useState(false);
   var [username, setUserName] = useState("");
   var [sala, setSala] = useState("");
 
@@ -34,6 +36,7 @@ export default function App() {
     {!logado ?
       <Login login={login}/>
   :
+      !cadastrar ?
     <Container fluid className="App">
       <Row>
         <Col md={9}>
@@ -44,6 +47,8 @@ export default function App() {
         </Col>
       </Row>
     </Container> 
+    :
+    <Cadastro socket={socket}/>
     }
   </div>
   

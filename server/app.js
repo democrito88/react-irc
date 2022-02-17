@@ -13,7 +13,6 @@ const io = require('socket.io')(server, {
 
 
 const Usuario = require('./usuarioController');
-Usuario.login('usuario', ['nome', 'senha'], ['democrito', 'demo']);
 
 var logMensagens = [];
 var usuarios = [];
@@ -27,8 +26,16 @@ app.use("/", function(req, res){
     return "<h2>Oi!</h2>";
 })
 
+app.use("/cadastrar", function(req, res){
+    res.send("../client/components/");
+})
+
 io.on("connection", function(socket){
     console.log("Socket conectado com a id: "+socket.id)
+
+    socket.on('cadastrar', function(input){
+        Usuario.criar([input.nome, input.senha]);
+    })
 
     socket.on('login', function(input){
         socket.join(input.sala); //configura um socket para aquela sala

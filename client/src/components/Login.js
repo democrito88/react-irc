@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Modal, Form, FormGroup, FormControl, InputGroup } from 'react-bootstrap';
+import { Modal, Form, FormGroup, FormControl, InputGroup, Row, Col } from 'react-bootstrap';
 import Botao from './Botao.js';
 
 function Login({login}) {
@@ -45,6 +45,9 @@ function Login({login}) {
               </Botao>
             </Form>
         </Modal.Body>
+        <Modal.Footer>
+          <p>Ainda não tem cadastro? <a href='/cadastrar'>Clique aqui.</a></p>
+        </Modal.Footer>
       </Modal>
     </>
   );

@@ -8,8 +8,9 @@ exports.selecionar = function(id){
     return database.selecionar('usuario', ['id'], [id]);
 }
 
+//A coluna 'mensagem' deve ser, por padrão, nula
 exports.criar = function(arrayUser){
-    return database.inserir('usuario', ['nome', 'senha', 'mensagem', 'avatar'], arrayUser);
+    return database.inserir('usuario', ['nome', 'senha'], arrayUser);
 }
 
 exports.atualizar = function(arrayUser){
