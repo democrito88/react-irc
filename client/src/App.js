@@ -32,11 +32,17 @@ export default function App() {
     }
   }
 
+  const cadastrando = () => {
+    setLogado(true);
+    setCadastrar(true);
+    console.log("logado: "+logado+", cadastrar:"+cadastrar);
+  }
+
   return <div>
     {!logado ?
-      <Login login={login}/>
+      <Login login={login} cadastrando={cadastrando}/>
   :
-      !cadastrar ?
+      (!cadastrar ?
     <Container fluid className="App">
       <Row>
         <Col md={9}>
@@ -48,7 +54,7 @@ export default function App() {
       </Row>
     </Container> 
     :
-    <Cadastro socket={socket}/>
+    <Cadastro socket={socket}/>)
     }
   </div>
   

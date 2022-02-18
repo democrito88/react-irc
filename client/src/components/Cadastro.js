@@ -9,18 +9,18 @@ function Cadastro({socket}) {
     const handleNome = function(e){
         setNome(e.target.value);
         if(nome.length < 4){
-            $("#nome").prop("style", "border-color: red");
+            document.getElementById("nome").setAttribute("style", "border-color: red");
         }else{
-            $("#nome").prop("style", "border-color: green");
+            document.getElementById("nome").setAttribute("style", "border-color: green");
         }
     };
 
     const handleSenha = function(e){
         setSenha(e.target.value);
         if(senha.length < 6){
-            $("#senha").prop("style", "border-color: red");
+            document.getElementById("senha").setAttribute("style", "border-color: red");
         }else{
-            $("#senha").prop("style", "border-color: green");
+            document.getElementById("senha").setAttribute("style", "border-color: green");
         }
     };
 
@@ -32,9 +32,9 @@ function Cadastro({socket}) {
         if(nome.length > 4 && senha.length > 6){
             socket.emit("cadastrar", {nome, senha, avatar});
         }else if(nome.length <= 4){
-            $("#nomeLegenda").prop("style", "display: block;")
+            document.getElementById("nomeLegenda").setAttribute("style", "display: block;");
         }else if(senha.length <= 6){
-            $("#senhaLegenda").prop("style", "display: block;")
+            document.getElementById("senhaLegenda").setAttribute("style", "display: block;");
         }
     }
 
@@ -65,7 +65,7 @@ function Cadastro({socket}) {
                         value={nome} 
                         onChange={handleNome}
                         />
-                        <small style={"display: none"}>O nome de login deve conter ao menos 4 caracteres</small>
+                        {/*<small className='mensagemLogin'>O nome de login deve conter ao menos 4 caracteres</small>*/}
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="cadastroSenha">
@@ -77,7 +77,7 @@ function Cadastro({socket}) {
                         value={senha} 
                         onChange={handleSenha}
                         />
-                        <small style={"display: none"}>A senha deve conter ao menos 6 caracteres</small>
+                        {/*<small className='mensagemSenha'>A senha deve conter ao menos 6 caracteres</small>*/}
                     </Form.Group>
                     
                     <Button variant="primary" type="submit" onClick={cadastrar}>
