@@ -36,6 +36,8 @@ io.on("connection", function(socket){
     socket.on('cadastrar', function(input){
         console.log(input);
         Usuario.criar([input.nome, input.senha]);
+
+        app.use('/App.js')
     })
 
     socket.on('login', function(input){
