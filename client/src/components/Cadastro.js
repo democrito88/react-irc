@@ -1,7 +1,17 @@
 import React, {useState} from 'react';
-import { Form, Button, Modal } from 'react-bootstrap';
+import { Form, Button, Card } from 'react-bootstrap';
+import io from 'socket.io-client';
 
-function Cadastro({socket}) {
+const URL_CONEXAO = "http://localhost:3001";
+
+const socket = io(URL_CONEXAO, {
+  cors: {
+    origin: '*',
+    methods: ['GET','POST']
+  }
+});
+
+function Cadastro() {
     var [nome, setNome] = useState("");
     var [senha, setSenha] = useState("");
     var [avatar, setAvatar] = useState("");
@@ -39,11 +49,8 @@ function Cadastro({socket}) {
     }
 
     return (
-        <Modal>
-            <Modal.Header>
-                <h3>Cadastre-se em nossa rede de chats.</h3>
-            </Modal.Header>
-            <Modal.Body>
+        <div className='container my-3'>
+            <Card className='p-3'>
                 <Form>
                     <Form.Group className="mb-3" controlId="cadastroAvatar">
                         <Form.Label>Avatar</Form.Label>
@@ -84,8 +91,8 @@ function Cadastro({socket}) {
                         Criar
                     </Button>
                 </Form>
-            </Modal.Body>
-        </Modal>
+            </Card>
+        </div>
     );
 }
 

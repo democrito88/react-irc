@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 const db = mysql.createConnection({
     user: 'phpmyadmin',
-    password: '',
+    password: 'BldnTS9L7W8m',
     host: 'localhost',
     database: 'irc'
 });
@@ -67,7 +67,8 @@ module.exports = {
                 stringInterrogacao += ", ";
             }
         }
-    
+        console.log("INSERT INTO "+tabela+"("+stringColunas+") VALUES("+stringInterrogacao+")",
+        arrayValores);
         db.query(
             "INSERT INTO "+tabela+"("+stringColunas+") VALUES("+stringInterrogacao+")",
             arrayValores,

@@ -34,6 +34,7 @@ io.on("connection", function(socket){
     console.log("Socket conectado com a id: "+socket.id)
 
     socket.on('cadastrar', function(input){
+        console.log(input);
         Usuario.criar([input.nome, input.senha]);
     })
 

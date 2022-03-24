@@ -10,6 +10,7 @@ exports.selecionar = function(id){
 
 //A coluna 'mensagem' deve ser, por padrão, nula
 exports.criar = function(arrayUser){
+    console.log(arrayUser);
     return database.inserir('usuario', ['nome', 'senha'], arrayUser);
 }
 
